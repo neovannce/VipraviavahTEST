@@ -3,7 +3,10 @@
     "builds": [
         {
             "src": "app.py",
-            "use": "@vercel/python"
+            "use": "@vercel/python",
+            "config": {
+                "includeFiles": ["templates/**", "static/**"]
+            }
         }
     ],
     "routes": [
@@ -18,9 +21,5 @@
     ],
     "env": {
         "PYTHONPATH": "."
-    },
-    "includeFiles": [
-        "templates/**",
-        "static/**"
-    ]
+    }
 } 
