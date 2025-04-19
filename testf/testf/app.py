@@ -6,6 +6,12 @@ from db import get_connection
 import os
 import uuid
 from datetime import datetime
+import logging
+import traceback
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
@@ -22,17 +28,30 @@ if not os.environ.get('VERCEL'):
 @app.before_request
 def before_request():
     try:
+        logger.info("Attempting database connection...")
         conn = get_connection()
         conn.close()
+        logger.info("Database connection successful")
     except Exception as e:
-        app.logger.error(f"Database connection error: {str(e)}")
+        logger.error(f"Database connection error: {str(e)}")
+        logger.error(traceback.format_exc())
         return "Database connection error", 500
 
+@app.errorhandler(Exception)
+def handle_error(e):
+    logger.error(f"Unhandled exception: {str(e)}")
+    logger.error(traceback.format_exc())
+    return f"An error occurred: {str(e)}", 500
 
 @app.route('/')
 def home():
-    return render_template('home.html')
-
+    try:
+        logger.info("Home route accessed")
+        return render_template('home.html')
+    except Exception as e:
+        logger.error(f"Error in home route: {str(e)}")
+        logger.error(traceback.format_exc())
+        raise
 
 @app.route('/contact')
 def contact():
