@@ -5,7 +5,6 @@ from config import SECRET_KEY
 from db import get_connection
 import os
 import uuid
-
 from datetime import datetime
 
 app = Flask(__name__)
@@ -23,7 +22,7 @@ def home():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contactus.html')
 
 
 @app.route('/login-register', methods=['GET'])
@@ -484,3 +483,6 @@ def myprofile():
 
 if __name__ == '__main__':
     app.run(debug=True)
+else:
+    # This is needed for Vercel
+    app = app
