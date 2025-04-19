@@ -32,7 +32,8 @@ except Exception as e:
 # Initialize Flask app with template and static folders
 app = Flask(__name__, 
             template_folder=template_dir,
-            static_folder=static_dir)
+            static_folder=static_dir,
+            static_url_path='/static')
 app.secret_key = SECRET_KEY
 
 # Update upload folder path for Vercel
