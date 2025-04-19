@@ -22,10 +22,7 @@ logger.info(f"Base directory: {base_dir}")
 logger.info(f"Template directory: {template_dir}")
 logger.info(f"Static directory: {static_dir}")
 
-# Create directories if they don't exist
-os.makedirs(template_dir, exist_ok=True)
-os.makedirs(static_dir, exist_ok=True)
-
+# Initialize Flask app with template and static folders
 app = Flask(__name__, 
             template_folder=template_dir,
             static_folder=static_dir)
@@ -35,8 +32,10 @@ app.secret_key = SECRET_KEY
 UPLOAD_FOLDER = os.path.join(static_dir, 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Only create directory if it doesn't exist and we're not in a serverless environment
+# Only create directories if not in Vercel environment
 if not os.environ.get('VERCEL'):
+    os.makedirs(template_dir, exist_ok=True)
+    os.makedirs(static_dir, exist_ok=True)
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Add error handling for database connections
@@ -62,7 +61,11 @@ def handle_error(e):
 def home():
     try:
         logger.info("Home route accessed")
-        logger.info(f"Template directory contents: {os.listdir(template_dir)}")
+        # Check if template exists
+        template_path = os.path.join(template_dir, 'home.html')
+        if not os.path.exists(template_path):
+            logger.error(f"Template not found at: {template_path}")
+            return "Template not found", 500
         return render_template('home.html')
     except Exception as e:
         logger.error(f"Error in home route: {str(e)}")

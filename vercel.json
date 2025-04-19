@@ -18,5 +18,9 @@
     ],
     "env": {
         "PYTHONPATH": "."
-    }
+    },
+    "includeFiles": [
+        "templates/**",
+        "static/**"
+    ]
 } 
