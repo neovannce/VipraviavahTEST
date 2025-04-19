@@ -6,4 +6,3 @@ click==8.1.7
 python-dotenv==1.0.1
 mysql-connector-python==8.3.0
 gunicorn==21.2.0
-mysql-connector-python-rf==2.2.3
