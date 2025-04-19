@@ -13,7 +13,20 @@ app.secret_key = SECRET_KEY
 # Update upload folder path for Vercel
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Only create directory if it doesn't exist and we're not in a serverless environment
+if not os.environ.get('VERCEL'):
+    os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+# Add error handling for database connections
+@app.before_request
+def before_request():
+    try:
+        conn = get_connection()
+        conn.close()
+    except Exception as e:
+        app.logger.error(f"Database connection error: {str(e)}")
+        return "Database connection error", 500
 
 
 @app.route('/')
