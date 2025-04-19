@@ -5,13 +5,13 @@ from config import SECRET_KEY
 from db import get_connection
 import os
 import uuid
-
 from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = SECRET_KEY
 
-UPLOAD_FOLDER = 'static/uploads'
+# Update upload folder path for Vercel
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -23,7 +23,7 @@ def home():
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    return render_template('contactus.html')
 
 
 @app.route('/login-register', methods=['GET'])
@@ -484,3 +484,6 @@ def myprofile():
 
 if __name__ == '__main__':
     app.run(debug=True)
+else:
+    # This is needed for Vercel
+    app = app
