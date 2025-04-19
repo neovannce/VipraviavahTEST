@@ -22,6 +22,13 @@ logger.info(f"Base directory: {base_dir}")
 logger.info(f"Template directory: {template_dir}")
 logger.info(f"Static directory: {static_dir}")
 
+# Log the contents of the template directory
+try:
+    template_files = os.listdir(template_dir)
+    logger.info(f"Template files found: {template_files}")
+except Exception as e:
+    logger.error(f"Error listing template directory: {str(e)}")
+
 # Initialize Flask app with template and static folders
 app = Flask(__name__, 
             template_folder=template_dir,
@@ -63,8 +70,15 @@ def home():
         logger.info("Home route accessed")
         # Check if template exists
         template_path = os.path.join(template_dir, 'home.html')
+        logger.info(f"Looking for template at: {template_path}")
         if not os.path.exists(template_path):
             logger.error(f"Template not found at: {template_path}")
+            # List all files in the template directory
+            try:
+                all_files = os.listdir(template_dir)
+                logger.error(f"Available files in template directory: {all_files}")
+            except Exception as e:
+                logger.error(f"Error listing template directory: {str(e)}")
             return "Template not found", 500
         return render_template('home.html')
     except Exception as e:
