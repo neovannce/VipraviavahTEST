@@ -14,14 +14,25 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Get the absolute path to the templates directory
-template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
-logger.info(f"Template directory: {template_dir}")
+base_dir = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.join(base_dir, 'templates')
+static_dir = os.path.join(base_dir, 'static')
 
-app = Flask(__name__, template_folder=template_dir)
+logger.info(f"Base directory: {base_dir}")
+logger.info(f"Template directory: {template_dir}")
+logger.info(f"Static directory: {static_dir}")
+
+# Create directories if they don't exist
+os.makedirs(template_dir, exist_ok=True)
+os.makedirs(static_dir, exist_ok=True)
+
+app = Flask(__name__, 
+            template_folder=template_dir,
+            static_folder=static_dir)
 app.secret_key = SECRET_KEY
 
 # Update upload folder path for Vercel
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
+UPLOAD_FOLDER = os.path.join(static_dir, 'uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Only create directory if it doesn't exist and we're not in a serverless environment
