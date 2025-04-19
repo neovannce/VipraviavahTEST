@@ -13,7 +13,11 @@ import traceback
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__)
+# Get the absolute path to the templates directory
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
+logger.info(f"Template directory: {template_dir}")
+
+app = Flask(__name__, template_folder=template_dir)
 app.secret_key = SECRET_KEY
 
 # Update upload folder path for Vercel
@@ -47,11 +51,12 @@ def handle_error(e):
 def home():
     try:
         logger.info("Home route accessed")
+        logger.info(f"Template directory contents: {os.listdir(template_dir)}")
         return render_template('home.html')
     except Exception as e:
         logger.error(f"Error in home route: {str(e)}")
         logger.error(traceback.format_exc())
-        raise
+        return f"Error loading template: {str(e)}", 500
 
 @app.route('/contact')
 def contact():
