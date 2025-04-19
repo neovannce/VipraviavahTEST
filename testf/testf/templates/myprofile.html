@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - विप्रVivah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/explore.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('home') }}" class="navbar-brand">
+                <i class="fas fa-heart"></i> विप्रVivah
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ url_for('explore') }}"><i class="fas fa-search"></i> Explore</a></li>
+                <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="profiles-container">
+        <div class="profile-card">
+            <div class="profile-image">
+                {% if profile['profile_picture'] %}
+                    <img src="{{ profile['profile_picture'] }}" 
+                         alt="{{ profile['name_first'] }}'s Profile Picture" 
+                         class="profile-picture">
+                {% else %}
+                    <div class="no-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="profile-info">
+                <h3>{{ profile['name_first'] }} {{ profile['name_last'] }}</h3>
+                <div class="profile-details">
+                    <p><i class="fas fa-birthday-cake"></i> {{ profile['age'] }} years</p>
+                    <p><i class="fas fa-language"></i> {{ profile['mother_tongue'] }}</p>
+                    <p><i class="fas fa-city"></i> {{ profile['temp_city'] }}</p>
+                    <p><i class="fas fa-tree"></i> {{ profile['gotra'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Profile Information -->
+        <div class="profile-card">
+            <div class="profile-info">
+                <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                <div class="profile-details">
+                    <p><i class="fas fa-venus-mars"></i> {{ profile['gender'] }}</p>
+                    <p><i class="fas fa-calendar"></i> {{ profile['dob'] }}</p>
+                    <p><i class="fas fa-envelope"></i> {{ profile['email'] }}</p>
+                    <p><i class="fas fa-phone"></i> {{ profile['phone'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+                <div class="profile-details">
+                    <p><i class="fas fa-home"></i> {{ profile['temp_address'] }}, {{ profile['temp_city'] }}, {{ profile['temp_state'] }} - {{ profile['temp_pincode'] }}</p>
+                    <p><i class="fas fa-building"></i> {{ profile['perm_address'] }}, {{ profile['perm_city'] }}, {{ profile['perm_state'] }} - {{ profile['perm_pincode'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-info">
+                <h3><i class="fas fa-graduation-cap"></i> Education & Career</h3>
+                <div class="profile-details">
+                    <p><i class="fas fa-user-graduate"></i> {{ profile['qualification'] }} in {{ profile['specialization'] }}</p>
+                    <p><i class="fas fa-briefcase"></i> {{ profile['working_status'] }} at {{ profile['works_with'] }}</p>
+                    <p><i class="fas fa-money-bill-wave"></i> {{ profile['income'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-info">
+                <h3><i class="fas fa-heart"></i> Partner Preferences</h3>
+                <div class="profile-details">
+                    <p><i class="fas fa-search"></i> Looking for {{ profile['looking_for'] }}</p>
+                    <p><i class="fas fa-user-friends"></i> Age range: {{ profile['age_min'] }} - {{ profile['age_max'] }}</p>
+                    <p><i class="fas fa-language"></i> Mother tongue: {{ profile['mother_tongue'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <div class="profile-info">
+                <h3><i class="fas fa-share-alt"></i> Social Media</h3>
+                <div class="profile-details">
+                    {% if profile['instagram'] %}
+                    <p><i class="fab fa-instagram"></i> <a href="{{ profile['instagram'] }}" target="_blank">Instagram</a></p>
+                    {% endif %}
+                    {% if profile['facebook'] %}
+                    <p><i class="fab fa-facebook"></i> <a href="{{ profile['facebook'] }}" target="_blank">Facebook</a></p>
+                    {% endif %}
+                    {% if profile['linkedin'] %}
+                    <p><i class="fab fa-linkedin"></i> <a href="{{ profile['linkedin'] }}" target="_blank">LinkedIn</a></p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="disclaimer">
+                <h4><i class="fas fa-info-circle"></i> Disclaimer</h4>
+                <p>विप्रVivah is a platform for Brahmin matrimony. We verify profiles to ensure authenticity, but we recommend users to exercise due diligence before proceeding with any match.</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 विप्रVivah. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Profiles - विप्रVivah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/explore.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{{ url_for('home') }}" class="navbar-brand">
+                <i class="fas fa-heart"></i>
+                विप्रVivah
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="{{ url_for('myprofile') }}"><i class="fas fa-user"></i> My Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="filter-section">
+        <form class="filter-form" method="GET" action="{{ url_for('explore') }}">
+            <div class="filter-group">
+                <label for="gender"><i class="fas fa-venus-mars"></i> Looking for</label>
+                <select class="filter-select" id="gender" name="gender">
+                    <option value="">Any</option>
+                    <option value="Boy">Boy</option>
+                    <option value="Girl">Girl</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="mother_tongue"><i class="fas fa-language"></i> Mother Tongue</label>
+                <select class="filter-select" id="mother_tongue" name="mother_tongue">
+                    <option value="">Any</option>
+                    <option value="Hindi">Hindi</option>
+                    <option value="Marathi">Marathi</option>
+                    <option value="Gujarati">Gujarati</option>
+                    <option value="Bengali">Bengali</option>
+                    <option value="Tamil">Tamil</option>
+                    <option value="Telugu">Telugu</option>
+                    <option value="Kannada">Kannada</option>
+                    <option value="Malayalam">Malayalam</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="city"><i class="fas fa-city"></i> City</label>
+                <select class="filter-select" id="city" name="city">
+                    <option value="">Any</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="gotra"><i class="fas fa-tree"></i> Gotra</label>
+                <select class="filter-select" id="gotra" name="gotra">
+                    <option value="">Any</option>
+                    <option value="Bharadwaj">Bharadwaj</option>
+                    <option value="Kashyap">Kashyap</option>
+                    <option value="Vatsa">Vatsa</option>
+                    <option value="Vishwamitra">Vishwamitra</option>
+                    <option value="Jamadagni">Jamadagni</option>
+                    <option value="Vasistha">Vasistha</option>
+                    <option value="Koundinya">Koundinya</option>
+                    <option value="Harita">Harita</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+
+    <div class="profiles-container">
+        {% for profile in profiles %}
+        <a href="{{ url_for('profile_detail', profile_id=profile.id) }}" class="profile-card">
+            <div class="profile-image">
+                {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture }}" alt="{{ profile.name }}" class="profile-picture">
+                {% else %}
+                <div class="no-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                {% endif %}
+            </div>
+            <div class="profile-info">
+                <h3>{{ profile.name }}</h3>
+                <div class="profile-details">
+                    <p><i class="fas fa-birthday-cake"></i> {{ profile.age }} years</p>
+                    <p><i class="fas fa-language"></i> {{ profile.mother_tongue }}</p>
+                    <p><i class="fas fa-city"></i> {{ profile.city }}</p>
+                    <p><i class="fas fa-tree"></i> {{ profile.gotra }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="disclaimer">
+                <h4><i class="fas fa-info-circle"></i> Disclaimer</h4>
+                <p>विप्रVivah is a platform for Brahmin matrimony. We verify profiles to ensure authenticity, but we recommend users to exercise due diligence before proceeding with any match.</p>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 विप्रVivah. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

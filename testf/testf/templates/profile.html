@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Profile - विप्रVivah</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="progress-nav">
+        <div class="progress-steps">
+            <div class="step active">1</div>
+            <div class="step">2</div>
+            <div class="step">3</div>
+            <div class="step">4</div>
+            <div class="step">5</div>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Basic Information</h1>
+            <p>Please provide your basic details to continue</p>
+        </div>
+
+        <form class="profile-form" action="{{ url_for('profile') }}" method="POST">
+            <div class="form-group">
+                <label for="profile_for">This profile is for</label>
+                <select id="profile_for" name="profile_for" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="myself">Myself</option>
+                    <option value="son">Son</option>
+                    <option value="daughter">Daughter</option>
+                    <option value="brother">Brother</option>
+                    <option value="sister">Sister</option>
+                    <option value="friend">Friend</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" id="first_name" name="first_name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="middle_name">Middle Name</label>
+                    <input type="text" id="middle_name" name="middle_name">
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="father_name">Father's Name</label>
+                    <input type="text" id="father_name" name="father_name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mother_name">Mother's Name</label>
+                    <input type="text" id="mother_name" name="mother_name" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <select id="age" name="age" required>
+                        <option value="" disabled selected>Age</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="religion">Subcaste</label>
+                    <select id="religion" name="religion" required>
+                        <option value="" disabled selected>Select</option>
+                        <option value="pandey">Pandey</option>
+                        <option value="mishra">Mishra</option>
+                        <option value="tripathi">Tripathi</option>
+                        <option value="shukla">Shukla</option>
+                        <option value="upadhyay">Upadhyay</option>
+                        <option value="chaturvedi">Chaturvedi</option>
+                        <option value="trivedi">Trivedi</option>
+                        <option value="dwivedi">Dwivedi</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="gotra">Gotra</label>
+                    <select id="gotra" name="gotra" required>
+                        <option value="" disabled selected>Select Gotra</option>
+                        <option value="kashyap">Kashyap</option>
+                        <option value="bharadwaj">Bharadwaj</option>
+                        <option value="vishwamitra">Vishwamitra</option>
+                        <option value="atri">Atri</option>
+                        <option value="agastya">Agastya</option>
+                        <option value="gautam">Gautam</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="mother_tongue">Mother Tongue</label>
+                <select id="mother_tongue" name="mother_tongue" required>
+                    <option value="" disabled selected>Select</option>
+                    <option value="hindi">Hindi</option>
+                    <option value="bengali">Bengali</option>
+                    <option value="marathi">Marathi</option>
+                    <option value="tamil">Tamil</option>
+                    <option value="telugu">Telugu</option>
+                    <option value="gujarati">Gujarati</option>
+                    <option value="kannada">Kannada</option>
+                    <option value="odia">Odia</option>
+                    <option value="malayalam">Malayalam</option>
+                    <option value="punjabi">Punjabi</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="height">Height</label>
+                    <input type="text" id="height" name="height" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email ID</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="window.location.href='{{ url_for('index') }}'">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    Continue <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Add smooth transitions and form validation
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            element.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
+</body>
+</html>
